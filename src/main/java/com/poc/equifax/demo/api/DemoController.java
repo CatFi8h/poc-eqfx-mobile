@@ -22,7 +22,7 @@ public class DemoController {
         if (messageId == null) {
             return "error";
         }
-        return "message marked as read " + messageId;
+        return String.format("Message with ID: %s marked as READ", messageId);
     }
 
     @GetMapping(value = "/{id}/pdf")
@@ -30,7 +30,7 @@ public class DemoController {
         if (messageId == null) {
             return "error";
         }
-        return "message marked as read " + messageId;
+        return String.format("Message with ID: %s exported to PDF", messageId);
     }
 
     @GetMapping(value = "unread")
