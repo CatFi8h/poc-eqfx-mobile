@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MessageReader {
 
-    List<Message> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     public MessagesList getMessages() {
         try (FileReader fileReader = new FileReader(ClassLoader.getSystemResource("static/messages.json").getPath())) {
