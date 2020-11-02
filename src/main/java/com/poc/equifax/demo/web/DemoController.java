@@ -2,6 +2,7 @@ package com.poc.equifax.demo.web;
 
 import com.poc.equifax.demo.service.MessageReader;
 import com.poc.equifax.demo.web.model.MessagesList;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +37,15 @@ public class DemoController {
     }
 
     @GetMapping(value = "/count")
-    public String messageCount(@RequestParam(name = "filter") String filter) {
-        if(filter == null || COUNT_FILTER_UNREAD.equals(filter)){
-            return String.format("%s messages left unread", messageReader.getUnreadMessagesCount());
+    public String messageCount(@Parameter(name =  "filter", example = "unread")
+                                   @RequestParam(name = "filter") String filter) {
+        String result = "Unsupported filter";
+        if (COUNT_FILTER_UNREAD.equals(filter)) {
+            result = String.format("%s messages left unread", messageReader.getUnreadMessagesCount());
+        } else if (filter == null) {
+            result = String.format("Total messages is %s", messageReader.getMessagesCount());
         }
-        return "Unsupported filter";
+        return result;
     }
 
 }

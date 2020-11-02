@@ -45,6 +45,10 @@ public class MessageReader {
         return messages.stream().filter(message -> !message.isMessageRead()).count();
     }
 
+    public long getMessagesCount() {
+        return messages.size();
+    }
+
     public void markMessageAsRead(Long id) {
         messages.stream().filter(message -> message.getId().equals(id)).forEach(Message::setMessageRead);
     }
