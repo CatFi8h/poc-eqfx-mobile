@@ -2,12 +2,9 @@ package com.poc.equifax.demo.web;
 
 import com.poc.equifax.demo.service.MessageReader;
 import com.poc.equifax.demo.web.model.MessagesList;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("membercenter/api/v1/messages")
@@ -21,7 +18,7 @@ public class DemoController {
         return messageReader.getMessages();
     }
 
-    @PutMapping(value = "/{id}")
+    @PatchMapping(value = "/{id}")
     public String markMessageAsRead(@PathVariable("id") Long messageId) {
         if (messageId == null) {
             return "error";
@@ -38,7 +35,7 @@ public class DemoController {
         return String.format("Message with ID: %s exported to PDF", messageId);
     }
 
-    @GetMapping(value = "unread")
+    @GetMapping(value = "/unread-count")
     public String messageCount() {
         return String.format("%s messages left unread", messageReader.getUnreadMessagesCount());
     }

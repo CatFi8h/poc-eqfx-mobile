@@ -43,7 +43,7 @@ class DemoControllerTest {
     public void shouldPassPutMarkMessageAsRead() throws Exception {
         mvc.perform(
                 MockMvcRequestBuilders
-                        .put("http:// localhost:8080/membercenter/api/v1/messages/1")
+                        .patch("http:// localhost:8080/membercenter/api/v1/messages/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -61,7 +61,7 @@ class DemoControllerTest {
     public void shouldPassGetMessagesCount() throws Exception {
         mvc.perform(
                 MockMvcRequestBuilders
-                        .get("http:// localhost:8080/membercenter/api/v1/messages/unread")
+                        .get("http:// localhost:8080/membercenter/api/v1/messages/unread-count")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
     }

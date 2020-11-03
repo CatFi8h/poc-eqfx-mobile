@@ -9,10 +9,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,9 @@ public class MessageReader {
     private List<Message> messages = new ArrayList<>();
 
     public MessagesList getMessages() {
-        try (FileReader fileReader = new FileReader(ClassLoader.getSystemResource("static/messages.json").getPath())) {
-            Object parse = new JSONParser().parse(fileReader);
+        try (InputStream resource = new ClassPathResource(
+                "static/messages.json").getInputStream()) {
+            Object parse = new JSONParser().parse(new InputStreamReader(resource, "UTF-8"));
             JSONArray messagesListArray = (JSONArray) parse;
             messages = mapToMessageList(messagesListArray);
             return MessagesList.builder()
